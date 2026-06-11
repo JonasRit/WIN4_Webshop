@@ -1,3 +1,12 @@
+<?php
+    session_start();
+    if(isset($_SESSION["logged_in"])) {
+        $logged_in = $_SESSION["logged_in"];
+    } else {
+        $logged_in = false;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -5,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Startseite</title>
 </head>
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -26,10 +35,22 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="./html/login.html">Login</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Warenkorb</a>
+        </li>
+        <li class="nav-item">
+            <span class="nav-link">Status: 
+            <?php 
+                if($logged_in) {
+                    echo "Eingeloggt";
+                } else {
+                    echo "Nicht eingeloggt";
+                }
+            ?>
+            </span>
+            </span>
         </li>
     </ul>
 </div>
