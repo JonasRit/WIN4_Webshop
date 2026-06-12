@@ -1,9 +1,12 @@
 <?php
     session_start();
-    if(isset($_SESSION["logged_in"])) {
-        $logged_in = $_SESSION["logged_in"];
-    } else {
-        $logged_in = false;
+        if(isset($_SESSION["logged_in"])) {
+
+        if($_SESSION["logged_in"] === true) {
+            $logged_in = $_SESSION["logged_in"];
+        } else {
+            $logged_in = false;
+        }
     }
 ?>
 
@@ -35,9 +38,9 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="./html/login.html">
+            <a class="nav-link" href="./php/loginGUI.php">
                 <?php 
-                if($logged_in) {
+                if(isset($logged_in) && $logged_in === true) {
                     echo "Logout";
                 } else {
                     echo "Login";
@@ -51,7 +54,7 @@
         <li class="nav-item">
             <span class="nav-link">Status: 
             <?php 
-                if($logged_in) {
+                if(isset($logged_in) && $logged_in === true) {
                     echo "Eingeloggt";
                 } else {
                     echo "Nicht eingeloggt";

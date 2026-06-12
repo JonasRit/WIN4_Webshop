@@ -11,6 +11,6 @@
         header("location: ../index.php");
     } else {
         $logged_in = false;
-        header("location: ../html/login.html");
+        header("location: ./LoginGUI.php");
     }
 ?>
