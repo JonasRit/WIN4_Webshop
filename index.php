@@ -35,7 +35,15 @@
     </ul>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link" href="./html/login.html">Login</a>
+            <a class="nav-link" href="./html/login.html">
+                <?php 
+                if($logged_in) {
+                    echo "Logout";
+                } else {
+                    echo "Login";
+                }
+            ?>
+            </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Warenkorb</a>
