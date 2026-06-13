@@ -69,6 +69,35 @@
 </nav>
 
 <body>
-    <h1>Hallo Jonas</h1>
+    <h1>Hallo</h1>
+
+    <?php
+		  	$mysqli = new mysqli("localhost", "root", "", "webshop");
+			if ($mysqli->connect_errno) {
+				die("Verbindung fehlgeschlagen: " . $mysqli->connect_error);
+			}
+			$sql = "SELECT * FROM produktkategorie p where p.parent_id IS NULL";
+			$statement = $mysqli->prepare($sql);
+			$statement->execute();
+			$result = $statement->get_result();
+
+			print("<table>");
+			
+			while($row = $result->fetch_object()) {
+				print("<tr>");
+				print("<td>");
+				print($row->id);
+				print("</td>");
+				print("<td>");
+				print($row->name);
+				print("</td>");
+				print("</tr>");			
+			}
+ 
+			print("</table>");
+
+		?>
+
+
 </body>
 </html>
