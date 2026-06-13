@@ -16,22 +16,18 @@
                 if (isset($_POST["username"])) {
                     $username = $_POST["username"];
                 }
-                if (isset($_POST["password"])) {
-                    $password = $_POST["password"];
-                }
-                if($username == $row->benutzername && $password == $row->passwort) {
-                    session_start();
-                    $_SESSION["logged_in"] = true;
-                    header("location: ../index.php");
+                if($username == $row->benutzername) {
+                    echo "Username bereits vergeben";
+                    exit();
                 } else {
-                    $logged_in = false;
+                    $sql = "INSERT INTO kunde (benutzername, passwort, vorname, name, anschrift, email) 
+                            VALUES (?, ?, ?, ?, ?, ?)";
+                    $statement = $mysqli->prepare($sql);
+                    $statement->bind_param('ssssss', $_POST["username"], $_POST["password"], $_POST["vorname"], $_POST["nachname"], $_POST["anschrift"], $_POST["email"]);
+                    $statement->execute();
                     header("location: ./LoginGUI.php");
                 }
 						
 			}
- 
-			
-
-
     
 ?>
