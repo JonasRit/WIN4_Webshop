@@ -118,10 +118,11 @@
 
                 while($row = $result->fetch_object()) {
                     echo '<div class="col-3">
-                        <div class="card text-bg-dark">
-                            <img src="./img/schuhe.webp" class="card-img" alt="...">
+                        <div class="card produkt text-bg-dark">
+                            <img src="./img/' . $row->bild . '" class="card-img" alt="...">
                             <div class="card-img-overlay">
                                 <h5 class="card-title">' . $row->bezeichnung . '</h5>
+                                <p>' . $row->beschreibung . ' €</p>
                                 <p>' . $row->preis . ' €</p>
                             </div>
                         </div>
