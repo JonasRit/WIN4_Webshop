@@ -1,0 +1,12 @@
+
+.row_category{
+    margin: 20px 50px;
+}
+
+.category{
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    margin-right: 20px;
+    margin-bottom: 50px;
+}
