@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./warenkorb.php">Warenkorb</a>
+                <a class="nav-link" href="./warenkorbGUI.php">Warenkorb</a>
             </li>
             <li class="nav-item">
                 <span class="nav-link">Status: 

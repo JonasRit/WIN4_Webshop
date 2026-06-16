@@ -47,7 +47,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="./php/warenkorb.php">Warenkorb</a>
+                <a class="nav-link" href="./php/warenkorbGUI.php">Warenkorb</a>
             </li>
             <li class="nav-item">
                 <span class="nav-link">Status: 
@@ -75,7 +75,11 @@
                 die("Verbindung fehlgeschlagen: " . $mysqli->connect_error);
             }
 
-            $id = isset($_GET["id"]) ? $_GET["id"] : NULL;
+             if(isset($_GET["id"])) {
+                $id = $_GET["id"];
+            } else {
+                $id = NULL;
+            }
 
             if($id == NULL) {
                 // Hauptkategorien
@@ -130,6 +134,13 @@
                     </div>';
                 }
             }
+
+            if(isset($_SESSION["warenkorb"])) {
+                $warenkorbe = $_SESSION["warenkorb"];
+            } else {
+                $warenkorbe = [];
+            }
+
         ?>
 
 
