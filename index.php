@@ -23,49 +23,46 @@
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Sportgeschäft.de</a>
+    <a class="navbar-brand" href="./index.php">Sportgeschäft.de</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">Startseite</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Startseite</a>
-        </li>
-        
-    </ul>
-    <ul class="navbar-nav">
-        <li class="nav-item">
-            <a class="nav-link" href="./php/loginGUI.php">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="./index.php">Startseite</a>
+            </li>
+            
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="./php/loginGUI.php">
+                    <?php 
+                    if(isset($logged_in) && $logged_in === true) {
+                        echo "Logout";
+                    } else {
+                        echo "Login";
+                    }
+                ?>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./php/warenkorb.php">Warenkorb</a>
+            </li>
+            <li class="nav-item">
+                <span class="nav-link">Status: 
                 <?php 
-                if(isset($logged_in) && $logged_in === true) {
-                    echo "Logout";
-                } else {
-                    echo "Login";
-                }
-            ?>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Warenkorb</a>
-        </li>
-        <li class="nav-item">
-            <span class="nav-link">Status: 
-            <?php 
-                if(isset($logged_in) && $logged_in === true) {
-                    echo "Eingeloggt";
-                } else {
-                    echo "Nicht eingeloggt";
-                }
-            ?>
-            </span>
-            </span>
-        </li>
-    </ul>
-</div>
+                    if(isset($logged_in) && $logged_in === true) {
+                        echo "Eingeloggt";
+                    } else {
+                        echo "Nicht eingeloggt";
+                    }
+                ?>
+                </span>
+                </span>
+            </li>
+        </ul>
+    </div>
   </div>
 </nav>
 
@@ -124,6 +121,10 @@
                                 <h5 class="card-title">' . $row->bezeichnung . '</h5>
                                 <p>' . $row->beschreibung . ' €</p>
                                 <p>' . $row->preis . ' €</p>
+                                <form action="./php/warenkorb.php" method="POST">
+                                    <input type="hidden" name="produkt_id" value="' . $row->id . '">
+                                    <input class="btn btn-primary" type="submit" value="In den Warenkorb">
+                                </form>
                             </div>
                         </div>
                     </div>';
