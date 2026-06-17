@@ -1,5 +1,6 @@
 <?php
     session_start();
+    require_once 'config.php';
     if(isset($_SESSION["logged_in"])) {
     $logged_in = $_SESSION["logged_in"];
     } else {
@@ -84,38 +85,47 @@
 
     
 
-    foreach($_SESSION["warenkorb"] as $produkt_id) {
-
-    $sql = "SELECT * FROM produkt p WHERE p.id = ?;";
+    $gesamtpreis = 0;
+foreach($_SESSION["warenkorb"] as $produkt_id) {
+    $sql = "SELECT * FROM produkt p WHERE p.id = ?";
     $statement = $mysqli->prepare($sql);
     $statement->bind_param('i', $produkt_id);
-        $statement->execute();
+    $statement->execute();
     $result = $statement->get_result();
-
-    while($row = $result->fetch_object()) {
-        echo '<div class="col-3">
-            <div class="card produkt text-bg-dark">
-                <img src="../img/' . $row->bild . '" class="card-img" alt="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">' . $row->bezeichnung . '</h5>
-                    <p>' . $row->beschreibung . ' €</p>
-                    <p>' . $row->preis . ' €</p>
-                </div>
-            </div>
-        </div>';
-    }
-}
-        
-        
+    $row = $result->fetch_object();
+    $gesamtpreis += $row->preis;
     
-
-  
-
-   
-        
-     
-
+    echo '
+    <div class="col-3">
+        <div class="card produkt text-bg-dark">
+            <img src="../img/' . $row->bild . '" class="card-img" alt="...">
+            <div class="card-img-overlay">
+                <h5 class="card-title">' . $row->bezeichnung . '</h5>
+                <p>' . $row->beschreibung . '</p>
+                <p>' . $row->preis . ' €</p>
+            </div>
+            <form action="./warenkorb_entfernen.php" method="POST">
+                <input type="hidden" name="produkt_id" value="' . $produkt_id . '">
+                <button type="submit" class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1">X</button>
+            </form>
+        </div>
+    </div>';
+}
 ?>
+
+<form action="<?php echo PAYPAL_URL; ?>" method="post">
+    <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>">
+    <input type="hidden" name="cmd" value="_xclick">
+    <input type="hidden" name="item_name" value="Warenkorb">
+    <input type="hidden" name="item_number" value="<?php echo session_id(); ?>">
+    <input type="hidden" name="amount" value="<?php echo $gesamtpreis; ?>">
+    <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>">
+    <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
+    <input type="hidden" name="cancel_return" value="<?php echo PAYPAL_CANCEL_URL; ?>">
+    <button type="submit" class="btn btn-success">Mit PayPal bezahlen</button>
+</form>
+
+
 
     
 </body>

@@ -16,9 +16,12 @@
     $result = $statement->get_result();
 
     if($result->num_rows == 1) {
+        $row = $result->fetch_object();
         $_SESSION["logged_in"] = true;
+        $_SESSION["kunde_id"] = $row->id;
         header("location: ../index.php");
     } else {
         header("location: ./LoginGUI.php");
     }
+
 ?>
