@@ -98,16 +98,19 @@
             if($result->num_rows > 0) {
                 // Kategorien/Unterkategorien anzeigen
                 while($row = $result->fetch_object()) {
-                    echo '<div class="col-3">
+                    echo '
+
+                    <div class="col-3">
                         <a href="./index.php?id=' . $row->id . '" style="text-decoration: none;">
-                            <div class="card category text-bg-dark">
-                                <img src="./img/schuhe.webp" class="card-img" alt="...">
-                                <div class="card-img-overlay">
-                                    <h5 class="card-title">' . $row->name . '</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>';
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body p-5 cardBody">
+                            <h5 class="card-title karteTitel">' . $row->name . '</h5>
+                            
+                        </div>
+                    </div>
+                    </a>
+                    </div>
+                    ';
                 }
             } else {
                 // Produkte anzeigen
@@ -118,20 +121,24 @@
                 $result = $statement->get_result();
 
                 while($row = $result->fetch_object()) {
-                    echo '<div class="col-3">
-                        <div class="card produkt text-bg-dark">
-                            <img src="./img/' . $row->bild . '" class="card-img" alt="...">
-                            <div class="card-img-overlay">
+                    echo '
+                    <div class="col-3">
+                        <div class="card h-100" style="width: 18rem;">
+                             <img class="card-img-top image" src="./img/' . $row->bild . '" alt="...">
+                            <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">' . $row->bezeichnung . '</h5>
-                                <p>' . $row->beschreibung . ' €</p>
-                                <p>' . $row->preis . ' €</p>
-                                <form action="./php/warenkorb.php" method="POST">
-                                    <input type="hidden" name="produkt_id" value="' . $row->id . '">
-                                    <input class="btn btn-primary" type="submit" value="In den Warenkorb">
-                                </form>
+                                <p>' . $row->beschreibung . '</p>
+                                <div class="mt-auto">
+                                    <p>' . $row->preis . ' €</p>
+                                    <form action="./php/warenkorb.php" method="POST">
+                                        <input type="hidden" name="produkt_id" value="' . $row->id . '">
+                                        <input class="btn btn-primary" type="submit" value="In den Warenkorb">
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>';
+                    </div>
+                    ';
                 }
             }
 

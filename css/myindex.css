@@ -17,3 +17,17 @@
     margin-right: 20px;
     margin-bottom: 50px;
 }
+
+
+.karteTitel{
+    display: inline-block;
+}
+
+.cardBody{
+    margin: auto;
+}
+
+.image{
+    height: 200px;
+    object-fit: cover;
+}
