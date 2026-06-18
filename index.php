@@ -67,7 +67,6 @@
 </nav>
 
 <body>
-    <h1>Hallo</h1>
     <div class="row row_category justify-content-start">
     <?php
 		  	$mysqli = new mysqli("localhost", "root", "", "webshop");
