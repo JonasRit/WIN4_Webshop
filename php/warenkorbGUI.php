@@ -1,5 +1,20 @@
 <?php
     session_start();
+
+    $timeout = 10 *60;
+
+    if (isset($_SESSION["letzte_aktivi"])) {
+        if (time() - $_SESSION["letzte_aktivi"] > $timeout) {
+            session_destroy();
+            header("Location: ./php/loginGUI.php");
+            exit();
+        }
+    }
+
+    $_SESSION["letzte_aktivi"] = time();
+
+
+
     require_once 'config.php';
     if(isset($_SESSION["logged_in"])) {
     $logged_in = $_SESSION["logged_in"];
