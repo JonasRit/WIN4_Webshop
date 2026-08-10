@@ -22,12 +22,15 @@
         $logged_in = false;
     }
 
-    if($logged_in === true){
-        if(isset($_SESSION["warenkorb"])){
-            $warenkorb = $_SESSION["warenkorb"];
-        }else{
-            $warenkorb = [];
-        }
+    if($logged_in !== true){
+    header("Location: ./loginGUI.php");
+    exit();
+    }
+
+    if(isset($_SESSION["warenkorb"])){
+        $warenkorb = $_SESSION["warenkorb"];
+    }else{
+        $warenkorb = [];
     }
     
 
@@ -101,12 +104,13 @@
     
 
     $gesamtpreis = 0;
-foreach($_SESSION["warenkorb"] as $produkt_id) {
-    $sql = "SELECT * FROM produkt p WHERE p.id = ?";
-    $statement = $mysqli->prepare($sql);
-    $statement->bind_param('i', $produkt_id);
-    $statement->execute();
-    $result = $statement->get_result();
+    foreach($warenkorb as $produkt_id) {
+    
+        $sql = "SELECT * FROM produkt p WHERE p.id = ?";
+        $statement = $mysqli->prepare($sql);
+        $statement->bind_param('i', $produkt_id);
+        $statement->execute();
+        $result = $statement->get_result();
     $row = $result->fetch_object();
     $gesamtpreis += $row->preis;
     
